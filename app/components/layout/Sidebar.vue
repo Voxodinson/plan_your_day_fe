@@ -1,6 +1,6 @@
 <template>
     <div 
-        class=" relative  transition-all h-[calc(100vh-50px)] bg-white duration-200 ease-in-out border-r-[1px] border-gray-200"
+        class=" relative  transition-all h-full bg-white duration-200 ease-in-out border-r-[1px] border-gray-200"
         :class="{
             'w-[25%]': !expand,
             'w-[57px]': expand
@@ -100,7 +100,6 @@
             </AccordionMenu>
             <UButton
                 icon="lucide:log-out"
-                color="white"
                 class="absolute border-none text-white bottom-2 py-2 w-[calc(100%-16px)] bg-[#3A6D8C] hover:bg-[#638ca5]  transition"
                 @click="() => {
                     logout();
