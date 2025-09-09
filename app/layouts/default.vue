@@ -1,9 +1,9 @@
 <template>
     <div 
-        class="w-full h-[100vh]">
+        class="w-full h-[100vh] flex">
         <SideBar/>
         <div
-            class="w-full">
+            class="w-[calc(100%-10%)]">
             <NuxtPage/>
         </div>
     </div>
