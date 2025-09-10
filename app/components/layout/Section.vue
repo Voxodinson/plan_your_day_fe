@@ -1,9 +1,9 @@
 <template>
     <li
-        class="py-1 block"
+        class="py-1 block mt-6"
         :class="classTitle">
         <span
-            class="text-black text-[.9rem] capitalize border-none"
+            class="text-black pl-2 text-[.9rem] uppercase border-none font-medium"
             :class="{
                 [classTitle as string]: classTitle}">
             {{ label }}
