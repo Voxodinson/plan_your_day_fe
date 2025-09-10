@@ -10,6 +10,9 @@ export default defineNuxtConfig({
         '@nuxt/ui'
     ],
     css: ['~/assets/css/main.css'],
+    ui: {
+        colorMode: false
+    },
     vite: {
         plugins: [
             tailwindcss(),

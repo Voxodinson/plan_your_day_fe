@@ -6,115 +6,144 @@
             'w-[57px]': expand
         }">
         <div 
-            class="w-full h-[45px] flex items-center relative border-b-[1px] border-gray-200"
+            class="w-full h-[60px] flex items-center relative border-b-[1px] border-gray-200"
             :class="{
               'justify-between' : !expand,
               'justify-center' : expand
             }">
-            <h3
+            <div
                 :class="{
                     'hidden': expand,
                     'block ml-2': !expand
-                }">Navigation</h3>
+                }">
+                <img 
+                    :src="LogoBlack" 
+                    alt="logo"
+                    class="w-[150px]">
+            </div>
             <UIcon 
                 name="f7:sidebar-left"
-                class="w-5 h-5 opacity-60 text-gray-700 hover:opacity-100 hover:text-black hover:scale-110 transition-all mr-2 duration-100 ease-in-out"
+                class="w-5 h-5 opacity-60 text-gray-700 hover:opacity-100 hover:text-black hover:scale-110 transition-all mr-4 duration-100 ease-in-out"
                 :class="{
                   'ml-1.5': expand
                 }"
                 @click="toggleSidebar(!expand)"/>
         </div>
-        <div class="h-[calc(100vh-95px)] px-2 overflow-auto">
-            <Menu
-                icon="ant-design:home-outlined"
-                title="Home"
-                path="/"
-                class-name=""
-                :class-title="!expand ? '' : 'hidden'"/>
+        <div class="h-[calc(100vh-95px)] p-4 overflow-auto">
+            <div 
+                class="w-full pl-2">
+                <UInput 
+                    icon="i-lucide-search" 
+                    size="md" 
+                    variant="outline" 
+                    color="primary"
+                    placeholder="Search..."
+                    class=" w-full bg-gray-100 rounded-md overflow-hidden"/>
+            </div>
             <Section
-                :class-title="!expand ? 'border-b-[1px] border-gray-300' : 'hidden'"
-                label="Exam Mangement"/>
-            <Menu
-                icon="mage:dashboard-check"
-                title="All Exam"
-                path="/all_exam"
-                class-name=""
-                :class-title="!expand ? '' : 'hidden'"/>
-            <Menu
-                icon="material-symbols:checklist"
-                title="Publish Exam"
-                path="/publish_exam"
-                class-name=""
-                :class-title="!expand ? '' : 'hidden'"/>
-            <Menu
-                icon="carbon:result"
-                title="Results"
-                path="/result_list"
-                class-name=""
-                :class-title="!expand ? '' : 'hidden'"/>
-            <Section
-                :class-title="!expand ? 'border-b-[1px] border-gray-300' : 'hidden'"
-                label="User Management"/>
-            <Menu
-                icon="hugeicons:add-team"
-                title="User Lists"
-                path="/user_management"
-                class-name=""
-                :class-title="!expand ? '' : 'hidden'"/>
-             <AccordionMenu
-                title="School Management"
+                label="Tasks"/>
+            <div 
+                class="w-full pl-3">
+                <Menu
+                    icon="uis:calender"
+                    title="Today"
+                    :len_show="true"
+                    len_num="10"
+                    path="/"
+                    class-name="pl-3"
+                    :class-title="!expand ? '' : 'hidden'"/>
+                <Menu
+                    icon="material-symbols:calendar-month-rounded"
+                    title="Calender"
+                    :len_show="true"
+                    len_num="10"
+                    path="/tasks/calender"
+                    class-name="pl-3"
+                    :class-title="!expand ? '' : 'hidden'"/>
+                <Menu
+                    icon="ri:sticky-note-fill"
+                    title="Sticky Wall"
+                    path="/tasks/sticky_wall"
+                    :len_show="false"
+                    len_num="10"
+                    class-name="pl-3"
+                    :class-title="!expand ? '' : 'hidden'"/>
+            </div>
+            <AccordionMenu
+                title="Lists"
                 :index="0"
+                :if_add_new="false"
                 :active-index="activeIndex"
                 :class-title="!expand ? '' : 'hidden'"
+                class="mt-6"
                 @toggle-accordion="toggleAccordion">
-                <Menu
-                    icon="mingcute:department-line"
-                    title="Department"
-                    path="/department"
-                    class-name=""
-                    :class-title="!expand ? '' : 'hidden'"/>
-                <Menu
-                    icon="carbon:education"
-                    title="Major"
-                    path="/major"
-                    class-name=""
-                    :class-title="!expand ? '' : 'hidden'"/>
-                <Menu
-                    icon="mingcute:classify-2-line"
-                    title="Class"
-                    path="/class"
-                    class-name=""
-                    :class-title="!expand ? '' : 'hidden'"/>
-                <Menu
-                    icon="material-symbols:alarm-outline"
-                    title="Shift Time"
-                    path="/shift"
-                    class-name=""
-                    :class-title="!expand ? '' : 'hidden'"/>
-                <Menu
-                    icon="fluent:people-team-32-regular"
-                    title="Students"
-                    path="/student_list"
-                    class-name=""
-                    :class-title="!expand ? '' : 'hidden'"/>
+                <div 
+                    class="w-full pl-3">
+                    <Menu
+                        icon="icon-park-solid:people"
+                        title="Personal"
+                        :len_show="true"
+                        len_num="6"
+                        path="/lists/personal"
+                        class-name=""
+                        :class-title="!expand ? '' : 'hidden'"/>
+                    <Menu
+                        icon="material-symbols:laptop-chromebook-outline-rounded"
+                        title="Work / Study"
+                        path="/lists/work_and_study"
+                        :len_show="true"
+                        len_num="9"
+                        class-name=""
+                        :class-title="!expand ? '' : 'hidden'"/>
+                    <Menu
+                        icon="famicons:fitness"
+                        title="Health / Fitness"
+                        :len_show="true"
+                        len_num="0"
+                        path="/lists/health_and_fitness"
+                        class-name=""
+                        :class-title="!expand ? '' : 'hidden'"/>
+                    <Menu
+                        icon="ri:brain-2-fill"
+                        title="Learning / Growth"
+                        path="/lists/learning_and_growth"
+                        :len_show="true"
+                        len_num="0"
+                        class-name="mb-6"
+                        :class-title="!expand ? '' : 'hidden'"/>
+                </div>
             </AccordionMenu>
-            <UButton
-                icon="lucide:log-out"
-                class="absolute border-none text-white bottom-2 py-2 w-[calc(100%-16px)] bg-[#3A6D8C] hover:bg-[#638ca5]  transition"
-                @click="() => {
-                    logout();
-                }">
-                <span
-                    v-if="!expand ? 'hidden' : ''"
-                    class="pl-2">
-                    Sign Out
-                </span>
-            </UButton>
+            <AccordionMenu
+                title="Projects"
+                :index="1"
+                :if_add_new="true"
+                :active-index="activeIndex"
+                :class-title="!expand ? '' : 'hidden'"
+                class=""
+                @toggle-accordion="toggleAccordion">
+                <div 
+                    class="w-full pl-3">
+                    <Menu
+                        icon="mingcute:department-line"
+                        title="Department"
+                        :len_show="true"
+                        len_num="0"
+                        path="/department"
+                        class-name=""
+                        :class-title="!expand ? '' : 'hidden'"/>
+                </div>
+            </AccordionMenu>
         </div>
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts">/**
+ * Begin::Modules import setion
+ */
+import {
+    type Router,
+    useRouter
+} from "vue-router";
 import {
     Menu,
     Section
@@ -128,15 +157,27 @@ import {
 import {
     Confirm
 } from "@/utils/dialog";
-import {
-    type Router,
-    useRouter
-} from "vue-router";
+/**
+ * End::Modules import section
+ */
+
+/**
+ * Begin::Image import section
+ */
+import { 
+    LogoBlack, 
+    LogoWhite 
+} from '~/assets/images/logo';
+/**
+ * End::Image import section
+ */
+
 
 /**
  * Begin::Set event trigger to parent component
  */
-const emit = defineEmits<{
+
+defineEmits<{
     (event: 'setTitle', title: string): void;
     (event: 'expand', state: boolean): void;
 }>();
