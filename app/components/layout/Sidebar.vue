@@ -1,8 +1,8 @@
 <template>
     <div 
-        class=" relative  transition-all h-full bg-white duration-200 ease-in-out border-r-[1px] border-gray-200"
+        class="relative transition-all h-full bg-white duration-200 ease-in-out border-r-[1px] border-gray-200"
         :class="{
-            'w-[25%]': !expand,
+            'w-[22%]': !expand,
             'w-[57px]': expand
         }">
         <div 
@@ -137,7 +137,8 @@
     </div>
 </template>
 
-<script setup lang="ts">/**
+<script setup lang="ts">
+/**
  * Begin::Modules import setion
  */
 import {

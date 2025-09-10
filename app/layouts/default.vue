@@ -3,15 +3,17 @@
         class="w-full h-[100vh] flex">
         <SideBar/>
         <div
-            class="w-[calc(100%-10%)]">
+            class="w-[calc(100%-44%)] bg-gray-100 overflow-y-auto">
             <NuxtPage/>
         </div>
+        <RightSidebar/>
     </div>
 </template>
 
 <script setup lang="ts">
 import { 
-    SideBar 
+    SideBar,
+    RightSidebar
 } from '~/components/layout';
 
 </script>

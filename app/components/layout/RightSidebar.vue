@@ -1,7 +1,7 @@
 <template>
     <div
-        class="w-full h-[200vh]">
-
+        class="w-[22%] h-full bg-white border-l-[1px] border-gray-200">
+        
     </div>
 </template>
 
@@ -9,7 +9,7 @@
 /**
  * Begin::Modules import setion
  */
-
+import { User } from '.';
 /**
  * End::Modules import section
  */

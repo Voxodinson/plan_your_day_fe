@@ -1,2 +1,28 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+::-webkit-scrollbar
+{
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-track
+{
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: #BDBDBD;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    background: rgb(63, 63, 63) bbb;
+    width: 100px;
+}
+
+.transition{
+    @apply transition-all duration-300 ease-in-out;
+}
