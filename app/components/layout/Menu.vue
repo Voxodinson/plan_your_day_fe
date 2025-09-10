@@ -1,6 +1,6 @@
 <template>
     <li
-        class="group py-2 p-2 w-full text-sm transition border-[1px] border-white hover:bg-gray-100 rounded-sm list-none mt-2"
+        class="group w-full text-sm transition border-[1px] border-white hover:bg-gray-100 rounded-sm list-none mt-2"
         :class="{
             'bg-gray-100': route.path === path,
             'bg-transparent': route.path !== path,
@@ -8,7 +8,7 @@
         }">
         <NuxtLink
             :to="path"
-            class="flex items-center justify-between w-full text-black text-nowrap group cursor-pointer">
+            class="flex items-center py-2 p-2 justify-between w-full text-black text-nowrap group cursor-pointer">
             <div 
                 class="flex items-center gap-2">
                 <UIcon

@@ -1,22 +1,17 @@
 <template>
-    <UDropdown
+    <UDropdownMenu
         :items="items"
         :popper="{
             placement: 'bottom-start'
-        }"
-        :ui="{
-            trigger: 'rounded-3xl  overflow-hidden',
-            background: 'bg-white',
-            width: 'w-fit min-w-[200px]'
         }">
         <div
             class="bg-white flex gap-x-2  rounded-md items-start">
             <UAvatar
-                src=""
+                src="https://i.pinimg.com/736x/f6/61/ea/f661ea61616909838a9fbfeda0d2ea14.jpg"
                 alt="user"
                 size="md"/>
         </div>
-    </UDropdown>
+    </UDropdownMenu>
 </template>
 
 <script setup lang="ts">
@@ -48,7 +43,7 @@ const items: Ref<any[][]> = computed(() => [
             label: (username.value as string),
             class: 'justify-start pb-3 hover:bg-transparent',
             avatar: {
-                src: '',
+                src: 'https://i.pinimg.com/736x/f6/61/ea/f661ea61616909838a9fbfeda0d2ea14.jpg',
                 size: 'lg'
             }
         },
