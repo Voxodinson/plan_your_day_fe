@@ -54,6 +54,21 @@
             </UButton>
             <div 
                 class="w-full bg-gray-100 flex flex-col gap-3 p-3 rounded-md mt-6">
+                <div class="w-full flex justify-between">
+                    <h3
+                        class=" font-semibold">
+                        Tasks
+                    </h3>
+                    <UButton
+                        :icon="show_select_task ? 'material-symbols:cancel-outline-rounded' : 'material-symbols:check-circle-outline-rounded'"
+                        color="neutral"
+                        size="xs"
+                        variant="outline"
+                        :ui="{
+                            leadingIcon: 'text-black'
+                        }"
+                        @click="toggle_select_task"/>
+                </div>
                 <div 
                     v-for="(task, idx) in task_datas"
                     :key="idx"
@@ -61,6 +76,7 @@
                     <div 
                         class="w-fit flex items-start gap-3">
                         <UCheckbox
+                            v-if="show_select_task"
                             size="lg"
                             v-model="task.completed" />
                         <div 
@@ -184,7 +200,7 @@ const date: Ref<any> = ref<any>(null)
 const date_foramatted: Ref<string | undefined> = ref<string | undefined>('');
 
 const open_date_modal: Ref<boolean | any> = ref<boolean | any>(false);
-
+const show_select_task: Ref<boolean | any> = ref<boolean | any>(false);
 
 const task_datas: Ref<Task[]> = ref<Task[]>([
     {
@@ -221,6 +237,10 @@ const task_datas: Ref<Task[]> = ref<Task[]>([
  */
 const toggle_date_modal = (): void => {
     open_date_modal.value = !open_date_modal.value as boolean;
+}
+
+const toggle_select_task = (): void => {
+    show_select_task.value = !show_select_task.value as boolean;
 }
 /**
  * End::logical section
