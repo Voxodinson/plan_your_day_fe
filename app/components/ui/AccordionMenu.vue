@@ -3,7 +3,7 @@
         @click="toggleAccordion(index)"
         role="accordion"
         :class="class"
-        class="py-2 pl-2 cursor-pointer flex justify-between group w-full text-sm transition border-[1px] border-white hover:bg-gray-100 rounded-sm list-none">
+        class="py-2 pl-2 cursor-pointer flex justify-between group w-full text-sm transition hover:bg-gray-100 rounded-sm list-none">
         <button
             class="bg-transparent flex gap-x-3 items-center text-[#248BFD] text-nowrap">
             <span
@@ -24,7 +24,7 @@
             </UButton>
             <UIcon 
                 name="material-symbols:chevron-right-rounded"
-                class="w-6 h-6 text-gray-400 group-hover:text-gray-400 hover:scale-110 transition mr-2.5"
+                class="w-6 h-6 text-gray-400 group-hover:text-gray-400 hover:scale-110 transition"
                 :class="{
                     'rotate-90': activeIndex === index,
                 }"/>

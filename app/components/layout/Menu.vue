@@ -1,8 +1,8 @@
 <template>
     <li
-        class="group w-full text-sm transition border-[1px] border-white hover:bg-gray-100 rounded-sm list-none mt-2"
+        class="group w-full text-sm transition border-white hover:bg-gray-100 rounded-sm list-none mt-2"
         :class="{
-            'bg-gray-100': route.path === path,
+            'bg-slate-200': route.path === path,
             'bg-transparent': route.path !== path,
             [className as string]: className
         }">
@@ -33,16 +33,8 @@
                     {{ title }}
                 </span>
             </div>
-            <span
-                v-if="Boolean(len_show)"
-                class="group-hover:bg-white bg-gray-100 text-sm h-fit px-2 rounded-sm text-black"
-                :class="{
-                    'text-purple-600': route.path === path,
-                    'text-gray-500': route.path !== path,
-                    [classTitle as string]: classTitle
-                }">
-                {{ len_num }}
-            </span>
+            <UKbd 
+                :value="len_num" />
         </NuxtLink>
     </li>
 </template>
@@ -62,7 +54,7 @@ withDefaults(defineProps<{
     className?: string,
     classTitle: string,
     len_show: boolean | null,
-    len_num: number | string
+    len_num: string
 }>(),{
     icon: '',
     title: '',
@@ -70,7 +62,7 @@ withDefaults(defineProps<{
     className: '',
     classTitle: '',
     len_show: false,
-    len_num: 0
+    len_num: '0'
 });
 
 
