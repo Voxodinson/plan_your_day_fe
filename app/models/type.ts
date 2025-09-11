@@ -45,6 +45,23 @@ interface Options
     [key: string]: Items[]
 }
 
+interface Subtask {
+  id: number;
+  name: string;
+  completed: boolean;
+}
+
+interface Task {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+  list: string;
+  completed: boolean;
+  due_date: string,
+  subtasks: Subtask[];
+}
+
 export type
 {
     Column,
@@ -52,5 +69,7 @@ export type
     Tab,
     Items,
     Options,
-    ResponseStatus
+    ResponseStatus,
+    Task,
+    Subtask
 };

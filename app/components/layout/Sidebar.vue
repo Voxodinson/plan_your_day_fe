@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="relative transition-all h-full bg-white duration-200 ease-in-out border-r-[1px] border-gray-200"
+        class="relative transition-all h-full bg-white dark:bg-slate-800 duration-200 ease-in-out border-r-[1px] border-gray-200"
         :class="{
             'w-[22%]': !expand,
             'w-[57px]': expand
@@ -30,16 +30,6 @@
                 @click="toggleSidebar(!expand)"/>
         </div>
         <div class="h-[calc(100vh-95px)] p-4 overflow-auto">
-            <div 
-                class="w-full pl-2">
-                <UInput 
-                    icon="i-lucide-search" 
-                    size="md" 
-                    variant="outline" 
-                    color="primary"
-                    placeholder="Search..."
-                    class=" w-full bg-gray-100 rounded-md overflow-hidden"/>
-            </div>
             <Section
                 label="Tasks"/>
             <div 
@@ -123,14 +113,7 @@
                 @toggle-accordion="toggleAccordion">
                 <div 
                     class="w-full pl-3">
-                    <Menu
-                        icon="mingcute:department-line"
-                        title="Department"
-                        :len_show="true"
-                        len_num="0"
-                        path="/department"
-                        class-name=""
-                        :class-title="!expand ? '' : 'hidden'"/>
+                    
                 </div>
             </AccordionMenu>
         </div>
