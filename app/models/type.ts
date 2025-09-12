@@ -50,16 +50,20 @@ interface Subtask {
   name: string;
   completed: boolean;
 }
-
+interface Priority {
+    label: string,
+    level: string
+}
 interface Task {
-  id: number;
-  name: string;
-  description: string;
-  date: string;
-  list: string;
-  completed: boolean;
-  due_date: string,
-  subtasks: Subtask[];
+    id: number;
+    name: string;
+    description: string;
+    date: string;
+    list: string;
+    completed: boolean;
+    due_date: string,
+    priority: Priority,
+    subtasks: Subtask[];
 }
 
 export type

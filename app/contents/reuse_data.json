@@ -1,0 +1,16 @@
+{
+    "lists": [
+        {
+            "label": "Personal"
+        },
+        {
+            "label": "Work / Study"
+        },
+        {
+            "label": "Health / Fitness"
+        },
+        {
+            "label": "Learning / Growth"
+        }
+    ]
+}
