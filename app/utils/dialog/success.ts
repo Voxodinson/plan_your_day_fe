@@ -9,10 +9,11 @@ const Success = (title: string): void => {
         showCancelButton: false,
         showConfirmButton: false,
         timerProgressBar: true,
-        timer: 4000,
+        timer: 3000,
         width: '500px',
         customClass: {
-            title: 'font-normal text-green-600 text-[1rem]',
+            popup: 'swal-popup',
+            title: 'swal-title',
         }
     });
 }

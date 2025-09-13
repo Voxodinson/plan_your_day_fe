@@ -12,7 +12,8 @@ const Error = (title: string): void => {
         timer: 4000,
         width: '500px',
         customClass: {
-            title: ' font-normal text-red-600 text-[1rem]',
+            popup: 'swal-popup',
+            title: 'swal-title',
         }
     });
 }
