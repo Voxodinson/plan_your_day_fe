@@ -114,16 +114,16 @@
                                     class="flex items-center gap-1">
                                     <UIcon
                                         :name="
-                                            task.list === 'personal' ? 'icon-park-solid:people' :
-                                            task.list === 'work / study' ? 'material-symbols:laptop-chromebook-outline-rounded' :
-                                            task.list === 'health / fitness' ? 'famicons:fitness' :
-                                            task.list === 'learning / growth' ? 'ri:brain-2-fill' :
+                                            task.list.label === 'personal' ? 'icon-park-solid:people' :
+                                            task.list.label === 'work / study' ? 'material-symbols:laptop-chromebook-outline-rounded' :
+                                            task.list.label === 'health / fitness' ? 'famicons:fitness' :
+                                            task.list.label === 'learning / growth' ? 'ri:brain-2-fill' :
                                             'material-symbols:task-outline'
                                         "
                                         class="w-4.5 h-4.5 text-gray-400"/>
                                     <span
                                         class="text-[0.7rem]">
-                                        {{ task.list }}
+                                        {{ task.list.label }}
                                     </span>
                                 </div>
                                 <USeparator 
@@ -159,6 +159,7 @@
                                         {{ task.priority.label }}
                                     </span>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -186,7 +187,8 @@
                 class="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
                 <div 
                     class="space-y-4">
-                    <UFormField label="Task Name">
+                    <UFormField 
+                        label="Task Name">
                         <UInput
                             v-model="new_task.name"
                             placeholder="Enter task name..."
@@ -194,7 +196,8 @@
                             size="lg"/>
                     </UFormField>
 
-                    <UFormField label="Description">
+                    <UFormField 
+                        label="Description">
                         <UTextarea
                             v-model="new_task.description"
                             placeholder="Enter description..."
@@ -202,14 +205,16 @@
                             :rows="4"/>
                     </UFormField>
 
-                    <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
-                        <UFormField label="List">
+                    <div 
+                        class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+                        <UFormField 
+                            label="List">
                             <USelectMenu
-                            v-model="new_task.list"
-                            :items="ReuseData.lists"
-                            class="w-full capitalize"
-                            placeholder="Select list..."
-                            size="lg"/>
+                                v-model="new_task.list"
+                                :items="ReuseData.lists"
+                                class="w-full capitalize"
+                                placeholder="Select list..."
+                                size="lg"/>
                         </UFormField>
 
                         <UFormField label="Due Date">
@@ -300,8 +305,9 @@
 
     <UModal
         v-model:open="open_edit_modal"
+        aria-hidden="true"
         :title="modify_task.name || 'Task'"
-        :description="modify_task.description || 'Description'"
+        description="Test"
         class="sm:w-full md:w-[900px] lg:w-[1000px]"
         :ui="{
             content: 'w-full sm:max-w-[95%] p-6' 
@@ -326,9 +332,9 @@
                     <UFormField label="Description">
                         <UTextarea
                             v-model="modify_task.description"
-                            placeholder="Description..."
+                            placeholder="Enter description..."
                             class="w-full"
-                            :rows="4"/>
+                            :rows="12"/>
                     </UFormField>
 
                     <div 
@@ -386,7 +392,9 @@
                         <li
                             v-if="!modify_task.subtasks || modify_task.subtasks.length === 0"
                             class="flex items-center gap-2 text-gray-400 italic">
-                            <UIcon name="si:warning-duotone" class="w-5 h-5 text-gray-400" />
+                            <UIcon 
+                                name="si:warning-duotone" 
+                                class="w-5 h-5 text-gray-400" />
                             No subtasks at the moment.
                         </li>
                         <li
@@ -412,13 +420,24 @@
                     label="Delete Task"
                     size="md"
                     variant="soft"
-                    color="error"/>
+                    color="error"
+                    @click="() => {
+                        open_edit_modal = Boolean(false);
+                        Confirm('Are you sure to delete this task?', () => {
+                            if(modify_task.id){
+                                delete_task(modify_task.id);
+                            }
+                        });
+                    }"/>
                 <UButton
                     icon="ic:baseline-save-alt"
                     label="Save Changes"
                     size="md"
                     variant="soft"
-                    color="info"/>
+                    color="info"
+                    @click="() => {
+                        update_task(modify_task)
+                    }"/>
             </div>
         </template>
     </UModal>
@@ -440,6 +459,7 @@
 
     <Loading
         :loading="loading_payload"/>
+
 </template>
 
 <script setup lang="ts"> 
@@ -460,10 +480,14 @@ import {
 import { 
     ReuseData 
 } from '~/contents';
+import {
+    Success, 
+    Error,
+    Confirm
+} from '~/utils/dialog';
 /**
  * End::Modules import section
  */
-
 /**
  * Begin::Image import section
  */
@@ -496,40 +520,7 @@ const open_create_modal: Ref<boolean > = ref<boolean>(false);
 const add_subtask: Ref<boolean > = ref<boolean>(false);
 
 const modify_task: Ref<Task | any> = ref<Task | any>({});
-const task_datas: Ref<Task[]> = ref<Task[]>([
-    {
-        id: 120948,
-        name: 'Renew driver license',
-        description: 'At Ministry',
-        date: '10 - September - 2025',
-        due_date: '12 - September - 2025',
-        list: 'work / study',
-        completed: true,
-        priority: {
-            label: 'High Priority',
-            level: 'high'
-        },
-        subtasks: [
-            { id: 1, name: 'Prepare documents', completed: false },
-            { id: 2, name: 'Pay fees', completed: false }
-        ]
-    },
-    {
-        id: 120949,
-        name: 'Grocery shopping',
-        description: '',
-        date: '11 - September - 2025',
-        due_date: '12 - September - 2025',
-        list: 'personal',
-        completed: false,
-        priority: {
-            label: 'Low Priority',
-            level: 'low'
-        },
-        subtasks: [
-        ]
-    }
-]);
+const task_datas: Ref<Task[]> = ref<Task[]>([]);
 /**
  * End::Declare variable section
  */
@@ -539,11 +530,11 @@ const task_datas: Ref<Task[]> = ref<Task[]>([
  */
 const new_subtask = ref('');
 const new_task = reactive<any>({
-    id: Date.now(),            // Unique ID
+    id: Date.now(),
     name: '',
     description: '',
-    date: '',                   // Creation date
-    due_date: '',               // Due date
+    date: '',
+    due_date: '',
     list: '',
     completed: false,
     priority: {
@@ -554,43 +545,100 @@ const new_task = reactive<any>({
 });
 
 // Add a subtask
-const addNewSubtask = () => {
+const get_task_datas = (): void => {
+    task_datas.value = JSON.parse(localStorage.getItem('task_datas') || '[]') as Task[];
+};
+
+const addNewSubtask = (): void => {
     if (!new_subtask.value) return;
+
+    if (!Array.isArray(new_task.subtasks)) {
+        new_task.subtasks = [];
+    }
     new_task.subtasks.push({
-        id: Date.now(),
+        id: Date.now() + Math.floor(Math.random() * 1000),
         name: new_subtask.value,
         completed: false
     });
     new_subtask.value = '';
 };
 
-// Save the new task
 const saveNewTask = () => {
-  // Set current date as creation date if empty
-  if (!new_task.date) {
-    const now = new Date();
-    new_task.date = now.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric'
-    });
-  }
+    try {
+        loading_payload.value = true;
 
-  console.log('New Task:', { ...new_task });
+        if (!new_task.date) {
+            const now = new Date();
+            new_task.date = now.toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
 
-  // Reset form
-  new_task.id = Date.now();
-  new_task.name = '';
-  new_task.description = '';
-  new_task.date = '';
-  new_task.due_date = '';
-  new_task.list = '';
-  new_task.completed = false;
-  new_task.priority = { label: 'Low Priority', level: 'low' };
-  new_task.subtasks = [];
+        const tasks = JSON.parse(localStorage.getItem('task_datas') || '[]');
+        new_task.id = Date.now();
+        tasks.push({ ...new_task });
+        localStorage.setItem('task_datas', JSON.stringify(tasks));
 
-  open_create_modal.value = false;
+        new_task.name = '';
+        new_task.description = '';
+        new_task.date = '';
+        new_task.due_date = '';
+        new_task.list = '';
+        new_task.completed = false;
+        new_task.priority = { label: 'Low Priority', level: 'low' };
+        new_task.subtasks = new_subtask.value;
+
+    
+        //clear subtask
+        new_subtask.value = [] as any;
+        get_task_datas();
+        Success('Create successfully..!')
+        open_create_modal.value = false;
+    }catch (error: any){
+        Error('Create failed..!');
+    }finally{
+        loading_payload.value = false
+    }
 };
+
+// Delete a task by ID
+const delete_task = (id: number) => {
+    try {
+        loading_payload.value = true;
+
+        task_datas.value = task_datas.value.filter((task: Task) => task.id !== id);
+        
+        localStorage.setItem('task_datas', JSON.stringify(task_datas.value));
+        Success('Deleted successfully..!');
+    }catch (error: any){
+        Error('Delete failed..!');
+    }finally{
+        loading_payload.value = false;
+    }
+};
+
+// Update a task by ID
+const update_task = (updatedTask: any) => {
+    Confirm('Are you sure to update this task?', () => {
+        try {
+            loading_payload.value = true;
+
+            task_datas.value = task_datas.value.map((task: Task) =>
+                task.id === updatedTask.id ? { ...updatedTask } : task
+            );
+            localStorage.setItem('task_datas', JSON.stringify(task_datas.value));
+
+            Success('Updated successfully..!');
+        }catch (error: any){
+            Error('Update failed..!');
+        }finally{ 
+            loading_payload.value = false;
+        }
+    })
+};
+
 const toggle_date_modal = (): void => {
     open_date_modal.value = !open_date_modal.value as boolean;
 }
@@ -622,4 +670,7 @@ const toggle_create_task = (): void => {
  * End::logical section
  */
 
+onMounted((): void => {
+    get_task_datas();
+})
 </script>

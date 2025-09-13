@@ -59,7 +59,9 @@ interface Task {
     name: string;
     description: string;
     date: string;
-    list: string;
+    list: {
+        label: string
+    };
     completed: boolean;
     due_date: string,
     priority: Priority,
